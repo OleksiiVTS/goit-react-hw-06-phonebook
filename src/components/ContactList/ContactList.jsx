@@ -3,13 +3,12 @@ import ContactItem from './ContactItem';
 import React from 'react';
 import css from './ContactItem.module.css';
 
-const ContactList = ({ onDeleteContact, listContacts }) => {
+const ContactList = ({ listContacts }) => {
   return (
     <ul>
       {listContacts.map(listContact => (
         <li className={css.itemContact} key={listContact.id}>
           <ContactItem
-            onDeleteContact={onDeleteContact}
             id={listContact.id}
             name={listContact.name}
             number={listContact.number}

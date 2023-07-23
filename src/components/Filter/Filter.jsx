@@ -1,11 +1,13 @@
-// import PropTypes from 'prop-types';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { setStatusFilter } from 'redux/actions';
 
-const Filter = ({ onFilterData, onFilterContact }) => {
+const Filter = () => {
+  const dispatch = useDispatch();
   return (
     <>
       <label>
-        <input type="text" value={onFilterData} onChange={onFilterContact} />
+        <input onChange={evt => dispatch(setStatusFilter(evt.target.value))} />
       </label>
     </>
   );
