@@ -1,31 +1,24 @@
-// import { statusFilters } from './constants';
-import { combineReducers } from 'redux';
-
+import { createReducer } from '@reduxjs/toolkit';
+import { addContacts, deleteContacts, setStatusFilter } from './actions';
 const LS_KAY = 'list_contacts';
 
 const contactsInitialState = JSON.parse(localStorage.getItem(LS_KAY)) ?? [];
-const contactsReducer = (state = contactsInitialState, action) => {
-  switch (action.type) {
-    case 'contacts/addContacts':
+export const contactsReducer = createReducer(contactsInitialState, builder => {
+  builder
+    .addCase(addContacts, (state, action) => {
+      // state.push(action.payload);
       return [...state, action.payload];
-    case 'contacts/deleteContacts':
+    })
+    .addCase(deleteContacts, (state, action) => {
+      // const index = state.findIndex(contact => contact.id !== action.payload);
+      // state.splice(index, 1);
       return state.filter(contact => contact.id !== action.payload);
-    default:
-      return state;
-  }
-};
+    });
+});
 
 const filtersInitialState = '';
-const filtersReducer = (state = filtersInitialState, action) => {
-  switch (action.type) {
-    case 'filters/setValueFilter':
-      return (state = action.payload);
-    default:
-      return state;
-  }
-};
-
-export const rootReducer = combineReducers({
-  contacts: contactsReducer,
-  filters: filtersReducer,
+export const filtersReducer = createReducer(filtersInitialState, builder => {
+  builder.addCase(setStatusFilter, (state, action) => {
+    return (state = action.payload);
+  });
 });
