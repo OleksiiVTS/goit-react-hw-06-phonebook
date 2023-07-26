@@ -1,12 +1,9 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addContacts } from 'redux/contactsSlice';
 import css from './ContactForm.module.css';
-import { selectContacts } from 'redux/selectors';
+import { useContacts } from 'redux/useContacts';
 
 const ContactForm = () => {
-  const valueContacts = useSelector(selectContacts);
-  const dispatch = useDispatch();
+  const { valueContacts, addContact } = useContacts();
 
   const handleSubmit = evt => {
     evt.preventDefault();
@@ -19,7 +16,8 @@ const ContactForm = () => {
       alert(`${name} is already in contacts!`);
       return;
     }
-    dispatch(addContacts({ name, number }));
+    addContact({ name, number });
+
     evt.target.reset();
   };
 

@@ -1,16 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { deleteContacts } from 'redux/contactsSlice';
+import { useContacts } from 'redux/useContacts';
 
 const ContactItem = ({ id, name, number }) => {
-  const dispatch = useDispatch();
+  const { deleteContact } = useContacts();
   return (
     <>
       <p>
         {name}: {number}
       </p>
-      <button type="button" onClick={() => dispatch(deleteContacts(id))}>
+      <button type="button" onClick={() => deleteContact(id)}>
         &times;
       </button>
     </>
@@ -18,6 +17,7 @@ const ContactItem = ({ id, name, number }) => {
 };
 
 ContactItem.propTypes = {
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   number: PropTypes.string.isRequired,
 };

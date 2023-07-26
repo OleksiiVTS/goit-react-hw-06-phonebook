@@ -1,13 +1,12 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { setStatusFilter } from 'redux/filtersSlice';
+import { useContacts } from 'redux/useContacts';
 
 const Filter = () => {
-  const dispatch = useDispatch();
+  const { filterContact } = useContacts();
   return (
     <>
       <label>
-        <input onChange={evt => dispatch(setStatusFilter(evt.target.value))} />
+        <input onChange={evt => filterContact(evt.target.value)} />
       </label>
     </>
   );

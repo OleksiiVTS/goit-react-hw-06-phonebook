@@ -1,14 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import css from './App.module.css';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
-import { selectContacts, selectFilters } from 'redux/selectors';
+import { useContacts } from 'redux/useContacts';
 
 const Phonebook = () => {
-  const valueContacts = useSelector(selectContacts);
-  const valueFilters = useSelector(selectFilters);
+  const { valueContacts, valueFilters } = useContacts();
 
   const getVisibleContacts = () => {
     return valueContacts.filter(contact =>
