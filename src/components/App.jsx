@@ -1,25 +1,22 @@
-import { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import css from './App.module.css';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
-
-const LS_KAY = 'list_contacts';
+import { selectContacts, selectFilters } from 'redux/selectors';
 
 const Phonebook = () => {
-  const valueContacts = useSelector(state => state.contacts);
-  const valueFilters = useSelector(state => state.filters);
-
-  useEffect(() => {
-    localStorage.setItem(LS_KAY, JSON.stringify(valueContacts));
-  }, [valueContacts]);
+  const valueContacts = useSelector(selectContacts);
+  const valueFilters = useSelector(selectFilters);
 
   const getVisibleContacts = () => {
     return valueContacts.filter(contact =>
       contact.name.toLowerCase().includes(valueFilters.toLowerCase())
     );
   };
+
+  const visibleContacts = getVisibleContacts();
 
   return (
     <div className={css.appDiv}>
@@ -30,8 +27,8 @@ const Phonebook = () => {
       <section>
         <h2>Contacts</h2>
         <Filter />
-        {getVisibleContacts().length > 0 && (
-          <ContactList listContacts={getVisibleContacts()} />
+        {visibleContacts.length > 0 && (
+          <ContactList listContacts={visibleContacts} />
         )}
       </section>
     </div>
